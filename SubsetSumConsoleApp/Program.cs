@@ -109,7 +109,22 @@ namespace SubsetSumConsoleApp
                         } else
                         {
                             currentNumbers.Add(set[index]);
-                            numSums.Add(currentNumbers.ToList());
+                            currentNumbers.Sort();
+                            bool alreadyExists = false;
+                            foreach(List<Int32> existingSet in numSums)
+                            {
+                                alreadyExists = existingSet.SequenceEqual(currentNumbers);
+
+                                if(alreadyExists)
+                                {
+                                    break;
+                                }
+                            }
+
+                            if(!alreadyExists)
+                            {
+                                numSums.Add(currentNumbers.ToList());
+                            }
                             counter = set.Count;
                         }
                     }
