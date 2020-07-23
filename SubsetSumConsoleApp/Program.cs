@@ -65,8 +65,8 @@ namespace SubsetSumConsoleApp
 
                 List<Int32> currentNumbers = new List<Int32>();
 
-                Int32 curNum = set[i];
-                set.RemoveAt(i);
+                Int32 curNum = set[0];
+                set.RemoveAt(0);
                 set.Add(curNum);
 
                 bool exhausted = false;
@@ -81,24 +81,23 @@ namespace SubsetSumConsoleApp
 
                     startPointer++;
 
-                    if (startPointer == set.Count - 1)
+                    if (startPointer == set.Count)
                     {
                         exhausted = true;
                         break;
                     }
 
-                    while (counter != set.Count - 1)
+                    while (counter < set.Count - 1)
                     {
-                        if (curSum + set[index] > sum)
+                        curSum += set[index];
+                        if (curSum > sum)
                         {
                             currentNumbers.Clear();
                             counter = set.Count;
-                            break;
 
-                        } else if(curSum + set[index] < sum)
+                        } else if(curSum < sum)
                         {
                             currentNumbers.Add(set[index]);
-                            curSum += set[index];
                             if (index + 1 == set.Count - 1)
                             {
                                 index = 0;
@@ -110,9 +109,8 @@ namespace SubsetSumConsoleApp
                         } else
                         {
                             currentNumbers.Add(set[index]);
-                            numSums.Add(currentNumbers);
+                            numSums.Add(currentNumbers.ToList());
                             counter = set.Count;
-                            break;
                         }
                     }
                 }
